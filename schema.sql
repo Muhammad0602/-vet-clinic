@@ -7,6 +7,18 @@ CREATE TABLE animals (
   escape_attempts INT,
   neutered BOOLEAN,
   weight_kg DECIMAL(5,2),
-  species VARCHAR(255),
+  species_id INT FOREIGN KEY REFERENCES species(id),
+  owner_id INT FOREIGN KEY REFERENCES owners(id),
   PRIMARY KEY(id)
+);
+
+CREATE TABLE owners (
+    id SERIAL PRIMARY KEY,
+    full_name VARCHAR(255),
+    age INT
+);
+
+CREATE TABLE species ( 
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255)
 );
