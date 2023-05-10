@@ -7,10 +7,18 @@ CREATE TABLE animals (
   escape_attempts INT,
   neutered BOOLEAN,
   weight_kg DECIMAL(5,2),
-  species_id INT FOREIGN KEY REFERENCES species(id),
-  owner_id INT FOREIGN KEY REFERENCES owners(id),
+  species VARCHAR(255),
   PRIMARY KEY(id)
 );
+
+ALTER TABLE animals
+DROP COLUMNS species;
+
+ALTER TABLE animals
+ADD COLUMN species_id INT REFERENCES species(id);
+
+ALTER TABLE animals
+ADD COLUMN owner_id INT REFERENCES owners(id);
 
 CREATE TABLE owners (
     id SERIAL PRIMARY KEY,
