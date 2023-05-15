@@ -48,7 +48,7 @@ COMMIT;
 SELECT COUNT(*) FROM animals;
 SELECT COUNT(*) FROM animals WHERE escape_attempts = 0;
 SELECT AVG(weight_kg) FROM animals;
-SELECT neutered, AVG(escape_attempts) AS avg_escape_attempts FROM animals 
+SELECT neutered, AVG(escape_attempts) AS avg_escape_attempts FROM animals
 GROUP BY neutered;
 
 SELECT species, MIN(weight_kg), MAX(weight_kg) FROM animals
@@ -90,7 +90,7 @@ GROUP BY owners.full_name;
 
 -- Who was the last animal seen by William Tatcher?
 
-SELECT a.name AS name_of_animal, v.date_of_visit FROM animals a 
+SELECT a.name AS name_of_animal, v.date_of_visit FROM animals a
 JOIN visits v ON a.id = v.animal_id
 WHERE v.vet_id = (SELECT id FROM vets WHERE vets.name = 'William Tatcher')
 ORDER BY v.date_of_visit DESC
@@ -105,13 +105,13 @@ GROUP BY vs.vet_id, v.name;
 
 -- List all vets and their specialties, including vets with no specialties.
 
-SELECT v.name, species.name FROM vets v 
+SELECT v.name, species.name FROM vets v
 LEFT JOIN specializations s ON v.id = s.vet_id
 LEFT JOIN species ON species.id = s.species_id;
 
 -- List all animals that visited Stephanie Mendez between April 1st and August 30th, 2020.
 
-SELECT a.name, v.date_of_visit FROM animals a 
+SELECT a.name, v.date_of_visit FROM animals a
 JOIN visits v ON a.id = v.animal_id
 WHERE v.vet_id = (SELECT id FROM vets WHERE vets.name = 'Stephanie Mendez')
 AND v.date_of_visit BETWEEN '2020-04-01' AND '2020-08-30';
@@ -149,10 +149,15 @@ GROUP BY vs.vet_id, v.name;
 
 -- What specialty should Maisy Smith consider getting? Look for the species she gets the most.
 
-SELECT s.name, COUNT(*) FROM visits vs 
+SELECT s.name, COUNT(*) FROM visits vs
 JOIN vets v ON v.id = vs.vet_id
 JOIN animals a ON a.id = vs.animal_id
 JOIN species s ON s.id = a.species_id
 WHERE v.name = 'Maisy Smith'
 GROUP BY s.name
 LIMIT 1;
+
+-- Add Explain Analyze queries to check database performance
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com';

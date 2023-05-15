@@ -26,7 +26,7 @@ CREATE TABLE owners (
     age INT
 );
 
-CREATE TABLE species ( 
+CREATE TABLE species (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255)
 );
@@ -53,3 +53,7 @@ CREATE TABLE visits (
 
 -- Add an email column to your owners table
 ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+-- Add indexes to visits table in order to improve Explain Analyze results
+CREATE INDEX visits_animal_id_idx ON visits (animal_id);
+CREATE INDEX visits_vet_animal_date_idx ON visits (vet_id, animal_id, date_of_visit);
