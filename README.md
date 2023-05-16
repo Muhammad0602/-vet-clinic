@@ -24,6 +24,11 @@
 
 Vet Clinic is a database designed to streamline the management of a veterinary clinic.
 
+## Database Diagram <a name="database-diagram"></a>
+![Database Diagram](./database_diagram.png)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ## 🛠 Built With <a name="built-with"></a>
 
 ### Tech Stack <a name="tech-stack"></a>
